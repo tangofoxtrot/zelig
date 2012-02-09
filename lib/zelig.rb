@@ -1,6 +1,7 @@
 require "zelig/mock_route"
 require "zelig/spec_helpers"
 require "zelig/version"
+require "zelig/rspec"
 
 module Zelig
   class << self
