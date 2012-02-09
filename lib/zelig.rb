@@ -1,3 +1,5 @@
+require "extensions/string"
+require "zelig/middleware"
 require "zelig/mock_route"
 require "zelig/spec_helpers"
 require "zelig/version"
@@ -21,6 +23,10 @@ module Zelig
 
     def service_mock_file
       File.join(output_dir, "#{service_name}_mock.rb").to_s
+    end
+
+    def sham_rack_file
+      File.join(output_dir, "sham_rack.rb").to_s
     end
   end
 end

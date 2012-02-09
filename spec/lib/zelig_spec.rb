@@ -29,5 +29,9 @@ describe Zelig do
     it "generates the descriptor file" do
       Zelig.descriptor_file.should == "test_dir/descriptor.yml"
     end
+
+    it "generates the sham rack file" do
+      Zelig.sham_rack_file.should == "test_dir/sham_rack.rb"
+    end
   end
 end
