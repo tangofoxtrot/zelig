@@ -1,3 +1,5 @@
+require "zelig/mock_route"
+require "zelig/spec_helpers"
 require "zelig/version"
 
 module Zelig
