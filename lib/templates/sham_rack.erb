@@ -8,11 +8,11 @@ ShamRack.at("<%=service_host%>").sinatra do
     <% responses.each_pair do |status, response| %>
       <% if status != "default" %>
     when "<%=status%>"
-      "<%=File.read("#{response['fixture_path']}")%>"
+      File.read("<%= response['fixture_path'] %>")
       <% end %>
     <% end %>
     else
-      "<%=File.read("#{responses['default']['fixture_path']}")%>"
+      File.read("<%= Zelig::MockRoute.default_fixture(responses) %>")
     end
   end
   <% end %>

@@ -1,3 +1,4 @@
+require "fileutils"
 require "extensions/string"
 require "zelig/middleware"
 require "zelig/mock_route"
@@ -12,20 +13,25 @@ module Zelig
       yield self
     end
 
+    def prepare_output_dir
+      FileUtils.mkdir_p fixture_dir
+      FileUtils.mkdir_p File.join(output_dir, "lib", "#{service_name}_mock").to_s
+    end
+
     def fixture_dir
-      File.join(output_dir, "fixtures").to_s
+      File.join(output_dir, "lib", "fixtures").to_s
     end
 
     def descriptor_file
-      File.join(output_dir, "descriptor.yml").to_s
+      File.join(output_dir, "lib", "descriptor.yml").to_s
     end
 
     def service_mock_file
-      File.join(output_dir, "#{service_name}_mock.rb").to_s
+      File.join(output_dir, "lib", "#{service_name}_mock.rb").to_s
     end
 
     def sham_rack_file
-      File.join(output_dir, "sham_rack.rb").to_s
+      File.join(output_dir, "lib", "#{service_name}_mock", "sham_rack.rb").to_s
     end
   end
 end

@@ -19,19 +19,19 @@ describe Zelig do
     end
 
     it "generates the fixture directory" do
-      Zelig.fixture_dir.should == "test_dir/fixtures"
+      Zelig.fixture_dir.should == "test_dir/lib/fixtures"
     end
 
     it "generates the service mock file" do
-      Zelig.service_mock_file.should == "test_dir/test_service_mock.rb"
+      Zelig.service_mock_file.should == "test_dir/lib/test_service_mock.rb"
     end
 
     it "generates the descriptor file" do
-      Zelig.descriptor_file.should == "test_dir/descriptor.yml"
+      Zelig.descriptor_file.should == "test_dir/lib/descriptor.yml"
     end
 
     it "generates the sham rack file" do
-      Zelig.sham_rack_file.should == "test_dir/sham_rack.rb"
+      Zelig.sham_rack_file.should == "test_dir/lib/test_service_mock/sham_rack.rb"
     end
   end
 end

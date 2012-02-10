@@ -5,6 +5,7 @@ module Zelig
     class << self
       def generate
         @descriptor = YAML.load File.open(Zelig.descriptor_file)
+        Zelig.prepare_output_dir
         write_service_mock
         write_sham_rack_app
       end

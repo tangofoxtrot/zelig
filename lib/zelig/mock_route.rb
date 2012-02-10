@@ -2,12 +2,22 @@ module Zelig
   class MockRoute
     attr_reader :route, :response
 
+    def self.default_fixture(responses)
+      fixture = responses['default']
+      if fixture.empty?
+        default = responses.keys.map { |k| k.to_s }.sort[0]
+        fixture = responses[default]
+      end
+      fixture['fixture_path']
+    end
+
     def initialize route
       @route = route
-      @response = {}
+      @response = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     end
 
     def respond_with status, content, options = {}
+      status = status.to_s
       description = options[:description] || description_from(status, route)
 
       response[status] = {
