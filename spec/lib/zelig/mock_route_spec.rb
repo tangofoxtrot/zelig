@@ -10,10 +10,10 @@ describe Zelig::MockRoute do
 
   describe "finding the default fixture" do
     let(:responses) do
-      r = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
-      r['200'] = { 'fixture_path' => '200' }
-      r['404'] = { 'fixture_path' => '404' }
-      r
+      {}.tap do |r|
+        r['200'] = { 'fixture_path' => '200' }
+        r['404'] = { 'fixture_path' => '404' }
+      end
     end
 
     it "returns the default" do
@@ -49,7 +49,7 @@ describe Zelig::MockRoute do
       it "generates the fixture path" do
         mock(File).open.with_any_args
         mock_route.respond_with(200, "CONTENT")
-        mock_route.response['200']['fixture_path'].should == "test_dir/lib/fixtures/200_links_id.fixture"
+        mock_route.response['200']['fixture_path'].should == "200_links_id.fixture"
       end
 
     end
@@ -66,7 +66,7 @@ describe Zelig::MockRoute do
 
       it "accepts a default option" do
         mock_route.response['default']['description'].should == "description"
-        mock_route.response['default']['fixture_path'].should == "test_dir/lib/fixtures/200_links_id.fixture"
+        mock_route.response['default']['fixture_path'].should == "200_links_id.fixture"
       end
     end
   end

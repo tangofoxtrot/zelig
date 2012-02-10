@@ -4,16 +4,16 @@ module Zelig
 
     def self.default_fixture(responses)
       fixture = responses['default']
-      if fixture.empty?
+      unless fixture
         default = responses.keys.map { |k| k.to_s }.sort[0]
         fixture = responses[default]
       end
-      fixture['fixture_path']
+      fixture && fixture['fixture_path']
     end
 
     def initialize route
       @route = route
-      @response = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+      @response = {}
     end
 
     def respond_with status, content, options = {}
@@ -31,11 +31,12 @@ module Zelig
     private
 
     def write_fixture status, content
-      fixture_path = File.join Zelig.fixture_dir, path_from(status, route)
+      path = path_from(status, route)
+      fixture_path = File.join Zelig.fixture_dir, path
       File.open(fixture_path, "w") do |file|
         file.write content
       end
-      fixture_path.to_s
+      path
     end
 
     def path_from status, route
