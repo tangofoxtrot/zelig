@@ -3,7 +3,6 @@ require "zelig/middleware"
 require "zelig/mock_route"
 require "zelig/spec_helpers"
 require "zelig/version"
-require "zelig/rspec"
 
 module Zelig
   class << self
@@ -30,3 +29,5 @@ module Zelig
     end
   end
 end
+
+load 'tasks/zelig.rake'

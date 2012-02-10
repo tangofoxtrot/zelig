@@ -3,18 +3,18 @@ require 'sham_rack'
 ShamRack.at("<%=service_host%>").sinatra do
 <% descriptor.each_pair do |route, verbs| %>
   <% verbs.each_pair do |verb, responses| %>
-    <%=verb%> "<%=route%>" do
-      case <%=service_class%>Mock.extpected_status
-      <% responses.each_pair do |status, response| %>
-        <% if status != "default" %>
-          when "<%=status%>"
-            "<%=File.read("#{response['fixture_path']}")%>"
-        <% end %>
+  <%=verb%> "<%=route%>" do
+    case <%=service_class%>Mock.extpected_status
+    <% responses.each_pair do |status, response| %>
+      <% if status != "default" %>
+    when "<%=status%>"
+      "<%=File.read("#{response['fixture_path']}")%>"
       <% end %>
-      else 
-        "<%=File.read("#{responses['default']['fixture_path']}")%>"
-      end
+    <% end %>
+    else
+      "<%=File.read("#{responses['default']['fixture_path']}")%>"
     end
+  end
   <% end %>
 <% end %>
 end

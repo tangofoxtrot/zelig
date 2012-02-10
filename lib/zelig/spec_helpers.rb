@@ -14,7 +14,7 @@ module Zelig
       descriptor
     end
 
-    private
+    #private
 
     def descriptor
       @descriptor ||= Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }

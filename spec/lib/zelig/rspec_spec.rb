@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'lib/zelig'
+require 'lib/zelig/rspec'
 
 describe RSpec do
   it "includes the fixture helpers" do
