@@ -77,8 +77,8 @@ describe Zelig::Middleware do
       it "registers a sinatra app with sham rack" do
         eval(service_mock_fake_file.string)
         eval(sham_rack_fake_file.string)
-         
-        ShamRack.application_for("#{Zelig.service_name}.test").should be
+
+       ShamRack.application_for("#{Zelig.service_name}.test").should be
       end
     end
   end

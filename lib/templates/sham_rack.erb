@@ -4,16 +4,18 @@ ShamRack.at("<%=service_host%>").sinatra do
 <% descriptor.each_pair do |route, verbs| %>
   <% verbs.each_pair do |verb, responses| %>
   <%=verb%> "<%=route%>" do
-    case <%=service_class%>Mock.extpected_status
+    fixture = nil
+    case <%=service_class%>Mock.expected_status
     <% responses.each_pair do |status, response| %>
       <% if status != "default" %>
     when "<%=status%>"
-      File.read(<%=service_class%>Mock.fixture_file("<%= response['fixture_path'] %>"))
+      fixture = <%=service_class%>Mock.fixture_file("<%= response['fixture_path'] %>")
       <% end %>
     <% end %>
     else
-      File.read(<%=service_class%>Mock.fixture_file("<%= Zelig::MockRoute.default_fixture(responses) %>"))
+      fixture = <%=service_class%>Mock.fixture_file("<%= Zelig::MockRoute.default_fixture(responses) %>")
     end
+    File.read(fixture)
   end
   <% end %>
 <% end %>
