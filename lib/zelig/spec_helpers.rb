@@ -1,5 +1,10 @@
 module Zelig
   module SpecHelpers
+    def initialize_descriptor
+      Zelig.prepare_output_dir
+      descriptor
+    end
+
     def write_descriptor
       File.open(Zelig.descriptor_file, "w") { |file| YAML.dump descriptor, file }
     end
@@ -14,7 +19,7 @@ module Zelig
       descriptor
     end
 
-    #private
+    private
 
     def descriptor
       @descriptor ||= Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
