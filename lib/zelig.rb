@@ -13,6 +13,10 @@ module Zelig
       yield self
     end
 
+    def service_name=(service_name)
+      @service_name = service_name.to_s
+    end
+
     def prepare_output_dir
       FileUtils.mkdir_p fixture_dir
       FileUtils.mkdir_p File.join(output_dir, "lib", "#{service_name}_mock").to_s
