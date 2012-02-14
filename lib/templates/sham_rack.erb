@@ -1,22 +1,26 @@
 require 'sham_rack'
 
 ShamRack.at("<%=service_host%>").sinatra do
-<% descriptor.each_pair do |route, verbs| %>
-  <% verbs.each_pair do |verb, responses| %>
+<% descriptor.each_pair do |route, verbs|
+  verbs.each_pair do |verb, responses| %>
   <%=verb%> "<%=route%>" do
     fixture = nil
     case <%=service_class%>Mock.expected_status
-    <% responses.each_pair do |status, response| %>
-      <% if status != "default" %>
+    <% responses.each_pair do |status, response|
+
+     if status != "default" %>
     when "<%=status%>"
+      status <%=status%>
       fixture = <%=service_class%>Mock.fixture_file("<%= response['fixture_path'] %>")
-      <% end %>
-    <% end %>
+      <% end
+    end %>
     else
-      fixture = <%=service_class%>Mock.fixture_file("<%= Zelig::MockRoute.default_fixture(responses) %>")
+      <% fixture_path, status = Zelig::MockRoute.default_fixture(responses) %>
+      status <%= status %>
+      fixture = <%=service_class%>Mock.fixture_file("<%= fixture_path %>")
     end
-    File.read(fixture)
+    body File.read(fixture)
   end
-  <% end %>
-<% end %>
+  <% end
+ end %>
 end

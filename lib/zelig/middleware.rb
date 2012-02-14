@@ -31,7 +31,7 @@ module Zelig
       end
 
       def template_for template
-        ERB.new File.read(File.join(File.dirname(__FILE__), "..", "templates", "#{template}.erb")), nil, ">"
+        ERB.new File.read(File.join(File.dirname(__FILE__), "..", "templates", "#{template}.erb")) #, nil, "<>"
       end
     end
   end

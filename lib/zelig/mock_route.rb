@@ -8,7 +8,7 @@ module Zelig
         default = responses.keys.map { |k| k.to_s }.sort[0]
         fixture = responses[default]
       end
-      fixture && fixture['fixture_path']
+      fixture && [fixture['fixture_path'], fixture['status']]
     end
 
     def initialize route
@@ -22,7 +22,8 @@ module Zelig
 
       response[status] = {
         'fixture_path' => write_fixture(status, content),
-        'description' => description
+        'description' => description,
+        'status' => status
       }
 
       response['default'] = response[status] if options[:default]
