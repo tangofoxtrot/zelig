@@ -1,6 +1,6 @@
 module Zelig
   class MockRoute
-    attr_reader :route, :zelig_response
+    attr_reader :route, :response
 
     def self.default_fixture(responses)
       fixture = responses['default']
@@ -13,19 +13,19 @@ module Zelig
 
     def initialize route
       @route = route
-      @zelig_response = {}
+      @response = {}
     end
 
     def respond_with status, content, options = {}
       status = status.to_s
       description = options[:description] || description_from(status, route)
 
-      zelig_response[status] = {
+      response[status] = {
         'fixture_path' => write_fixture(status, content),
         'description' => description
       }
 
-      zelig_response['default'] = zelig_response[status] if options[:default]
+      response['default'] = response[status] if options[:default]
     end
 
     private

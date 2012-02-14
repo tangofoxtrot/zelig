@@ -43,13 +43,13 @@ describe Zelig::MockRoute do
       it "generates a description" do
         mock(File).open.with_any_args
         mock_route.respond_with(200, "CONTENT")
-        mock_route.zelig_response['200']['description'].should == "200 response for /links/:id"
+        mock_route.response['200']['description'].should == "200 response for /links/:id"
       end
 
       it "generates the fixture path" do
         mock(File).open.with_any_args
         mock_route.respond_with(200, "CONTENT")
-        mock_route.zelig_response['200']['fixture_path'].should == "200_links_id.fixture"
+        mock_route.response['200']['fixture_path'].should == "200_links_id.fixture"
       end
 
     end
@@ -61,12 +61,12 @@ describe Zelig::MockRoute do
       end
 
       it "uses the supplied description" do
-        mock_route.zelig_response['200']['description'].should == "description"
+        mock_route.response['200']['description'].should == "description"
       end
 
       it "accepts a default option" do
-        mock_route.zelig_response['default']['description'].should == "description"
-        mock_route.zelig_response['default']['fixture_path'].should == "200_links_id.fixture"
+        mock_route.response['default']['description'].should == "description"
+        mock_route.response['default']['fixture_path'].should == "200_links_id.fixture"
       end
     end
   end
