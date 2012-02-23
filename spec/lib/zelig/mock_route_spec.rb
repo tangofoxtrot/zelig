@@ -11,18 +11,18 @@ describe Zelig::MockRoute do
   describe "finding the default fixture" do
     let(:responses) do
       {}.tap do |r|
-        r['200'] = { 'fixture_path' => '200' }
-        r['404'] = { 'fixture_path' => '404' }
+        r['200'] = { 'fixture_path' => 'good.fixture', 'status' => 200 }
+        r['404'] = { 'fixture_path' => 'bad.fixture', 'status' => 404 }
       end
     end
 
     it "returns the default" do
-      responses.merge!('default' => { 'fixture_path' => 'default' })
-      Zelig::MockRoute.default_fixture(responses).should == 'default'
+      responses.merge!('default' => { 'fixture_path' => 'default', 'status' => 200 })
+      Zelig::MockRoute.default_fixture(responses).should == ['default', 200]
     end
 
     it "returns the lowest response code if there is no default" do
-      Zelig::MockRoute.default_fixture(responses).should == '200'
+      Zelig::MockRoute.default_fixture(responses).should == ['good.fixture', 200]
     end
   end
 
