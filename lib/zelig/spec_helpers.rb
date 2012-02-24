@@ -12,7 +12,7 @@ module Zelig
     def mock_route verb, route, &block
       raise ArgumentError unless ['get', 'post', 'put', 'delete'].include? verb.to_s.downcase
 
-      MockRoute.new(route).tap do |mock_route|
+      MockRoute.new(route, verb).tap do |mock_route|
         mock_route.instance_eval &block
         descriptor[route.to_s][verb.to_s].merge! mock_route.response
       end

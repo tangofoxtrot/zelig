@@ -11,8 +11,9 @@ module Zelig
       fixture && [fixture['fixture_path'], fixture['status']]
     end
 
-    def initialize route
+    def initialize route, verb
       @route = route
+      @verb = verb
       @response = {}
     end
 
@@ -32,7 +33,7 @@ module Zelig
     private
 
     def write_fixture status, content
-      path = path_from(status, route)
+      path = path_from(@verb, status, route)
       fixture_path = File.join Zelig.fixture_dir, path
       File.open(fixture_path, "w") do |file|
         file.write content
@@ -40,9 +41,9 @@ module Zelig
       path
     end
 
-    def path_from status, route
+    def path_from verb, status, route
       path = route.gsub(/:/, '').gsub(/[^[:alnum:]]/, '_')
-      "#{status}#{path}.fixture"
+      "#{verb}_#{status}#{path}.fixture"
     end
 
     def description_from status, route
